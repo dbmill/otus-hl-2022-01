@@ -18,7 +18,7 @@ data "yandex_compute_image" "myimage" {
   family = "centos-stream-8"
 }
 data "local_file" "public_key" {
-  filename = format("%s/%s", pathexpand("~/.ssh"), element(tolist(fileset(pathexpand("~/.ssh"), "id_*.pub")),0))
+  filename = "${pathexpand("~/.ssh")}/${element(tolist(fileset(pathexpand("~/.ssh"), "id_*.pub")),0)}"
 }
 data "local_sensitive_file" "private_key" {
   filename = trimsuffix(data.local_file.public_key.filename, ".pub")
